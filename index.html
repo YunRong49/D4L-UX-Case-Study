@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprehension-First eConsent — Yunrong · Data4Life Case Study</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+<style>
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  --navy:      #1F1B7E;
+  --text:      #15161D;
+  --secondary: #565C6B;
+  --bg:        #F6F7F9;
+  --surface:   #FFFFFF;
+  --tint:      #E9E9FB;
+  --lime:      #C8F169;
+  --amber:     #F5A623;
+  --border:    #D6D6F0;
+  --font:      'Inter', sans-serif;
+}
+
+/* ── Reveal overrides ──────────────────────────────────────── */
+.reveal-viewport { background: var(--bg); }
+
+.reveal {
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--text);
+}
+
+.reveal .slides section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 0;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  font-family: var(--font);
+  color: var(--navy);
+  text-transform: none;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35em;
+  line-height: 1.15;
+}
+
+.reveal h1 { font-size: 2.2em; font-weight: 700; }
+.reveal h2 { font-size: 1.45em; font-weight: 700; }
+.reveal h3 { font-size: 1.05em; font-weight: 600; color: var(--navy); }
+
+.reveal p, .reveal li {
+  font-size: 0.88em;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 0.4em;
+}
+
+.reveal ul { list-style: none; padding: 0; margin: 0; }
+.reveal ul li::before {
+  content: "—";
+  color: var(--secondary);
+  margin-right: 0.45em;
+}
+
+.reveal a { color: var(--navy); }
+
+/* ── Master chrome ─────────────────────────────────────────── */
+.master {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.master-logo {
+  position: absolute;
+  top: 22px;
+  left: 36px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  font-family: var(--font);
+}
+
+.master-logo svg { width: 20px; height: 20px; }
+
+.master-footer {
+  position: absolute;
+  bottom: 16px;
+  left: 36px;
+  right: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--secondary);
+  font-family: var(--font);
+}
+
+/* ── Slide shell ───────────────────────────────────────────── */
+.slide-shell {
+  width: 100%;
+  height: 100%;
+  padding: 64px 60px 52px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Lime rule under title ─────────────────────────────────── */
+.section-rule {
+  width: 36px;
+  height: 3px;
+  background: var(--lime);
+  border-radius: 2px;
+  margin-bottom: 28px;
+  margin-top: 4px;
+}
+
+/* ── Chip / label ──────────────────────────────────────────── */
+.chip {
+  display: inline-block;
+  background: var(--tint);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* ── Three-column layout ───────────────────────────────────── */
+.cols {
+  display: grid;
+  gap: 24px;
+  flex: 1;
+  align-items: start;
+}
+.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+
+.col-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 20px 22px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.col-card h3 {
+  font-size: 0.9em;
+  margin-bottom: 12px;
+  color: var(--navy);
+}
+
+.col-card p, .col-card li {
+  font-size: 0.8em;
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* ── Metric pills ──────────────────────────────────────────── */
+.metrics {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.metric {
+  background: var(--tint);
+  color: var(--navy);
+  font-size: 0.76em;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+/* ── Phone card (soft drop-shadow, real aspect ratio) ──────── */
+.phone-row {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  min-height: 0;
+}
+
+.phone-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.phone-frame {
+  background: var(--surface);
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  padding: 6px;
+  box-shadow:
+    0 2px 6px rgba(31,27,126,0.06),
+    0 14px 38px rgba(31,27,126,0.14);
+}
+
+/* per-row phone height set inline via --ph; width follows real aspect ratio */
+.phone-frame img {
+  display: block;
+  height: var(--ph, 400px);
+  width: auto;
+  max-width: 100%;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+/* uniform-size phones: identical W×H window holding the full-length screenshot,
+   which AUTO-SCROLLS (ping-pong) so the lower sections reveal themselves live */
+.phone-row--uniform .phone-frame {
+  width: calc(var(--pw, 116px) + 12px);
+  height: var(--ph, 360px);
+  overflow: hidden;
+}
+
+.phone-row--uniform .phone-frame img {
+  width: 100%;
+  height: 100%;                 /* fill the fixed frame; cover + object-position pans it */
+  object-fit: cover;
+  object-position: 50% 0%;
+  border-radius: 12px;
+  animation: phone-autoscroll var(--dur, 9s) ease-in-out infinite;
+}
+
+/* pan from top to bottom and back via object-position — no compositor layer,
+   so it paints reliably even in software-rendered webviews */
+@keyframes phone-autoscroll {
+  0%, 14%   { object-position: 50% 0%; }
+  50%, 64%  { object-position: 50% 100%; }
+  100%      { object-position: 50% 0%; }
+}
+
+/* PDF / print export: no animation — show each screen FULL-LENGTH and uncropped
+   (a static page can't auto-scroll, so nothing is hidden in the PDF) */
+.pdf-export .phone-row--uniform { align-items: flex-end; }
+.pdf-export .phone-row--uniform .phone-frame {
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+.pdf-export .phone-row--uniform .phone-frame img {
+  width: var(--pw-pdf, 80px);
+  height: auto;
+  animation: none;
+  transform: none;
+  border-radius: 10px;
+}
+.pdf-export .phone-row--uniform .autoscroll-note { display: none; }
+
+/* respect reduced-motion: hold the phones still (the case study is about accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  .phone-row--uniform .phone-frame img { animation: none; }
+}
+
+.phone-caption {
+  font-size: 0.72em;
+  color: var(--secondary);
+  text-align: center;
+  line-height: 1.45;
+  max-width: 200px;
+}
+
+.phone-caption strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+/* ── Problem callout box ───────────────────────────────────── */
+.callout {
+  background: var(--surface);
+  border-left: 3px solid var(--navy);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.callout-label {
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 4px;
+}
+
+.callout p {
+  font-size: 0.82em;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── HMW ───────────────────────────────────────────────────── */
+.hmw {
+  background: var(--tint);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-top: 14px;
+}
+
+.hmw p {
+  font-size: 0.88em;
+  font-style: italic;
+  color: var(--navy);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ── Cost tags (slide 2) ───────────────────────────────────── */
+.cost-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.cost-tag {
+  font-size: 0.72em;
+  color: var(--secondary);
+  background: #FFF4E0;
+  border: 1px solid #F5C76A;
+  border-radius: 4px;
+  padding: 3px 9px;
+}
+
+/* ── Process row (slide 6) ─────────────────────────────────── */
+.process-steps {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.p-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.78em;
+  font-weight: 600;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.p-arrow {
+  color: var(--secondary);
+  font-size: 0.9em;
+}
+
+.fit-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.fit-tag {
+  background: var(--tint);
+  color: var(--navy);
+  font-size: 0.75em;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+/* ── Title slide ───────────────────────────────────────────── */
+.title-slide {
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 72px;
+}
+
+.title-slide h1 {
+  color: #FFFFFF;
+  font-size: 2.4em;
+  line-height: 1.1;
+  max-width: 720px;
+  margin-bottom: 0.25em;
+}
+
+.title-slide .subtitle {
+  color: rgba(255,255,255,0.65);
+  font-size: 1em;
+  margin-top: 6px;
+  margin-bottom: 32px;
+}
+
+.title-slide .tag-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.title-slide .tag {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.78em;
+  font-weight: 500;
+  padding: 5px 13px;
+  border-radius: 20px;
+}
+
+.title-slide .byline {
+  font-size: 0.85em;
+  color: rgba(255,255,255,0.5);
+}
+
+.title-slide .byline a {
+  color: rgba(255,255,255,0.7);
+}
+
+.title-lime {
+  width: 44px;
+  height: 4px;
+  background: var(--lime);
+  border-radius: 2px;
+  margin-bottom: 28px;
+}
+
+/* master chrome on dark title slide */
+.title-slide .master-logo { color: rgba(255,255,255,0.55); }
+.title-slide .master-footer { color: rgba(255,255,255,0.35); }
+
+/* ── Print / PDF ───────────────────────────────────────────── */
+@media print {
+  .reveal .slides { width: 1280px !important; height: 720px !important; }
+}
+
+@page {
+  size: 1280px 720px;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ─────────────────────────────────────────────────────────
+     SLIDE 1 · Title
+──────────────────────────────────────────────────────────── -->
+<section data-background-color="#1F1B7E">
+  <div class="master">
+    <div class="master-footer" style="color:rgba(255,255,255,0.35)">
+      <span>Yunrong &nbsp;·&nbsp; yunrong.framer.website</span>
+      <span>1 / 6</span>
+    </div>
+  </div>
+
+  <div class="title-slide">
+    <div class="title-lime"></div>
+    <h1>Comprehension-First eConsent</h1>
+    <p class="subtitle">Redesigning informed consent for D4L Collect's move into clinical research.</p>
+    <div class="tag-row">
+      <span class="tag">UX Case Study</span>
+      <span class="tag">Product Designer application</span>
+      <span class="tag">Data4Life</span>
+    </div>
+    <p class="byline">Yunrong &nbsp;·&nbsp; <a href="https://yunrong.framer.website" target="_blank">yunrong.framer.website</a></p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────
+     SLIDE 2 · The problem
+──────────────────────────────────────────────────────────── -->
+<section>
+  <div class="master">
+    <div class="master-logo">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="20" height="20" rx="4" fill="#1F1B7E"/>
+        <circle cx="10" cy="10" r="5" fill="#C8F169"/>
+      </svg>
+      Data4Life
+    </div>
+    <div class="master-footer">
+      <span>Yunrong &nbsp;·&nbsp; yunrong.framer.website</span>
+      <span>2 / 6</span>
+    </div>
+  </div>
+
+  <div class="slide-shell">
+    <div class="chip">The problem</div>
+    <h2 style="color:#15161D">Consent must satisfy regulators and people — today it satisfies neither.</h2>
+    <div class="section-rule"></div>
+
+    <div class="callout">
+      <div class="callout-label">Context</div>
+      <p>D4L Collect is moving from observational digital studies into clinical-research rigor — eCRF, ePRO, patient registry. eConsent is the participant's first interaction and the first trust-and-compliance priority named for this role.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Problem</div>
+      <p>Consent must be complete enough for regulators (ICH-GCP, EU CTR, GDPR Art. 9) yet understandable for real people. Today the long document wins and comprehension loses.</p>
+      <div class="cost-row">
+        <span class="cost-tag">Early withdrawal &amp; re-consent</span>
+        <span class="cost-tag">Ethics / audit risk</span>
+        <span class="cost-tag">Hidden coordinator burden from verbal re-explanation</span>
+      </div>
+    </div>
+
+    <div class="hmw">
+      <p>How might we raise genuine comprehension across diverse participants without sacrificing completeness or adding site workload?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────
+     SLIDE 3 · Discovery → definition
+──────────────────────────────────────────────────────────── -->
+<section>
+  <div class="master">
+    <div class="master-logo">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="20" height="20" rx="4" fill="#1F1B7E"/>
+        <circle cx="10" cy="10" r="5" fill="#C8F169"/>
+      </svg>
+      Data4Life
+    </div>
+    <div class="master-footer">
+      <span>Yunrong &nbsp;·&nbsp; yunrong.framer.website</span>
+      <span>3 / 6</span>
+    </div>
+  </div>
+
+  <div class="slide-shell">
+    <div class="chip">Discovery → Definition</div>
+    <h2 style="color:#15161D">Research approach, expected findings, and defining principles.</h2>
+    <div class="section-rule"></div>
+
+    <div class="cols cols-3" style="flex:1">
+      <div class="col-card">
+        <h3>How I'd research it</h3>
+        <ul>
+          <li>Participants (primary), coordinators, PIs / regulatory &amp; QA</li>
+          <li>Regulatory + health-literacy desk scan</li>
+          <li>Baseline comprehension measure — adapted QuIC on current flow</li>
+          <li>8–12 discovery interviews across age, literacy &amp; language incl. AT users</li>
+          <li>Moderated observation of live consent sessions</li>
+        </ul>
+      </div>
+
+      <div class="col-card">
+        <h3>What I'd expect to learn</h3>
+        <ul>
+          <li>Consent reads as "terms &amp; conditions" — skim and accept</li>
+          <li>"Data-fate" questions dominate trust: what data, who sees it, how long, can I withdraw</li>
+          <li>Comprehension is unequal across age, literacy &amp; language</li>
+          <li>Coordinators are the hidden comprehension patch</li>
+          <li>Dense legal blocks aren't assistive-tech navigable</li>
+        </ul>
+      </div>
+
+      <div class="col-card">
+        <h3>How that defines the problem</h3>
+        <p style="color:var(--navy);font-weight:600;margin-bottom:8px">POV</p>
+        <p>People are asked to agree before they're equipped to understand.</p>
+        <p style="color:var(--navy);font-weight:600;margin:10px 0 6px">Principles</p>
+        <ul>
+          <li>Comprehension over completeness-as-default</li>
+          <li>Progressive disclosure</li>
+          <li>No dark patterns</li>
+          <li>Accessibility-native</li>
+          <li>Audit by design</li>
+        </ul>
+        <div class="metrics">
+          <span class="metric">↑ QuIC</span>
+          <span class="metric">↓ Drop-off</span>
+          <span class="metric">↓ Coordinator-assist</span>
+          <span class="metric">WCAG 2.1 AA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────
+     SLIDE 4 · Solution — three phone screens
+──────────────────────────────────────────────────────────── -->
+<section>
+  <div class="master">
+    <div class="master-logo">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="20" height="20" rx="4" fill="#1F1B7E"/>
+        <circle cx="10" cy="10" r="5" fill="#C8F169"/>
+      </svg>
+      Data4Life
+    </div>
+    <div class="master-footer">
+      <span>Yunrong &nbsp;·&nbsp; yunrong.framer.website</span>
+      <span>4 / 6</span>
+    </div>
+  </div>
+
+  <div class="slide-shell">
+    <div class="chip">Solution</div>
+    <h2>Layered Living Consent — plain-language understanding on top of preserved regulatory text.</h2>
+    <div class="section-rule" style="margin-bottom:16px"></div>
+
+    <div class="phone-row phone-row--uniform" style="--ph:360px;--pw:116px;--pw-pdf:80px">
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <img src="Welcome_to_Data4Life.png" alt="Welcome to Data4Life — study entry screen" loading="eager" style="--scroll:-23px;--dur:7s">
+        </div>
+        <div class="phone-caption">
+          <strong>Step 0 · Entry</strong>
+          Calm onboarding sets the study context before any legal text appears.
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <img src="Step_1-Study_Details.png" alt="Step 1 — Study Details overview screen" loading="eager" style="--scroll:-187px;--dur:12s">
+        </div>
+        <div class="phone-caption">
+          <strong>Step 1 · Understand</strong>
+          Plain-language study overview with layered detail on demand.
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <img src="Step_2-Data_Privacy_Consent.png" alt="Step 2 — Data Privacy & Consent with teach-back checkpoint" loading="eager" style="--scroll:-244px;--dur:13s">
+        </div>
+        <div class="phone-caption" style="max-width:250px">
+          <strong>Step 2 · Read &amp; understand</strong>
+          "Who can see your data" + a teach-back checkpoint. Calm amber clarification, never a red error.
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:0.74em;color:var(--secondary);margin-top:20px;padding-top:14px;border-top:1px solid var(--border);text-align:center">
+      4-step flow &nbsp;—&nbsp; Understand &rarr; Read &amp; understand &rarr; Optional choices &rarr; Confirm &amp; sign &nbsp;+&nbsp; living "My agreements" record
+    </p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────
+     SLIDE 5 · Trust by design — two phone screens
+──────────────────────────────────────────────────────────── -->
+<section>
+  <div class="master">
+    <div class="master-logo">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="20" height="20" rx="4" fill="#1F1B7E"/>
+        <circle cx="10" cy="10" r="5" fill="#C8F169"/>
+      </svg>
+      Data4Life
+    </div>
+    <div class="master-footer">
+      <span>Yunrong &nbsp;·&nbsp; yunrong.framer.website</span>
+      <span>5 / 6</span>
+    </div>
+  </div>
+
+  <div class="slide-shell">
+    <div class="chip">Trust by design</div>
+    <h2>Two decisions that make GDPR-valid consent visible and withdrawal a standing right.</h2>
+    <div class="section-rule" style="margin-bottom:18px"></div>
+
+    <div class="phone-row" style="--ph:402px;justify-content:center;gap:96px;margin:0 auto">
+      <div class="phone-wrap" style="max-width:300px">
+        <div class="phone-frame">
+          <img src="Step3-Optional_Choices.png" alt="Step 3 — Optional data-use choices, all defaulting OFF" loading="eager">
+        </div>
+        <div class="phone-caption" style="max-width:300px">
+          <strong>Step 3 · Optional choices</strong>
+          All toggles default OFF with equal visual weight. Participation never depends on opting in — GDPR-valid, no nudging.
+        </div>
+      </div>
+
+      <div class="phone-wrap" style="max-width:300px">
+        <div class="phone-frame">
+          <img src="Step4-Confirm___Submit.png" alt="Step 4 — Confirm and sign with plain-language recap" loading="eager">
+        </div>
+        <div class="phone-caption" style="max-width:300px">
+          <strong>Step 4 · Confirm &amp; sign</strong>
+          Plain-language recap of exactly what's agreed, timestamped and versioned, exports to audit trail with zero extra coordinator effort. Withdrawal stays visible as an ongoing right.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────
+     SLIDE 6 · Process, testing & fit
+──────────────────────────────────────────────────────────── -->
+<section>
+  <div class="master">
+    <div class="master-logo">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="20" height="20" rx="4" fill="#1F1B7E"/>
+        <circle cx="10" cy="10" r="5" fill="#C8F169"/>
+      </svg>
+      Data4Life
+    </div>
+    <div class="master-footer">
+      <span>Yunrong &nbsp;·&nbsp; yunrong.framer.website</span>
+      <span>6 / 6</span>
+    </div>
+  </div>
+
+  <div class="slide-shell">
+    <div class="chip">Process, testing &amp; fit</div>
+    <h2>Research-led practice, coded for real accessibility validation.</h2>
+    <div class="section-rule"></div>
+
+    <div class="cols cols-2" style="flex:1;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <div class="col-card" style="padding:16px 18px">
+          <h3 style="margin-bottom:10px">Process</h3>
+          <div class="process-steps">
+            <span class="p-step">Stitch</span>
+            <span class="p-arrow">→</span>
+            <span class="p-step">Figma</span>
+            <span class="p-arrow">→</span>
+            <span class="p-step">Claude Code</span>
+          </div>
+          <ul>
+            <li><strong style="color:var(--navy)">Stitch</strong> — divergent UI directions from a fixed, Data4Life-branded design-system prompt</li>
+            <li><strong style="color:var(--navy)">Figma</strong> — accessible component system: focus order, AA contrast, DE/EN</li>
+            <li><strong style="color:var(--navy)">Claude Code</strong> — coded prototype for real screen-reader, keyboard &amp; timing validation Figma can't give</li>
+          </ul>
+        </div>
+
+        <div class="col-card" style="padding:16px 18px">
+          <h3 style="margin-bottom:10px">Testing</h3>
+          <ul>
+            <li>RITE usability rounds</li>
+            <li>QuIC comprehension re-test vs baseline</li>
+            <li>Accessibility audit with assistive tech</li>
+            <li>Live-study pilot</li>
+          </ul>
+          <div class="metrics" style="margin-top:10px">
+            <span class="metric">Comprehension uplift</span>
+            <span class="metric">↓ Drop-off</span>
+            <span class="metric">↓ Coordinator-assist</span>
+            <span class="metric">AA conformance</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-card" style="display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <h3 style="margin-bottom:12px">Why this role, why now</h3>
+          <p style="color:var(--secondary)">eConsent comprehension sits at the intersection of regulatory integrity and participant experience — exactly the space this role names. The design challenge isn't choosing between compliance and clarity; it's proving they're the same goal.</p>
+
+          <p style="color:var(--secondary);margin-top:10px">Regulation-as-design and WCAG 2.1 AA aren't constraints to route around here — they're the success criteria.</p>
+        </div>
+
+        <div>
+          <p style="font-size:0.78em;font-weight:600;color:var(--navy);margin-bottom:8px;margin-top:16px">Signals of fit</p>
+          <div class="fit-tags">
+            <span class="fit-tag">eConsent comprehension</span>
+            <span class="fit-tag">Regulation-as-design</span>
+            <span class="fit-tag">WCAG 2.1 AA</span>
+            <span class="fit-tag">Research-led practice</span>
+            <span class="fit-tag">GDPR Art. 9</span>
+            <span class="fit-tag">ICH-GCP &amp; EU CTR</span>
+          </div>
+
+          <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--border)">
+            <p style="font-size:0.88em;color:var(--navy);font-weight:600;margin:0">Yunrong</p>
+            <a href="https://yunrong.framer.website" style="font-size:0.8em;color:var(--secondary)">yunrong.framer.website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  width: 1280,
+  height: 720,
+  margin: 0,
+  minScale: 0.2,
+  maxScale: 2.0,
+  controls: true,
+  controlsTutorial: false,
+  progress: true,
+  slideNumber: false,
+  hash: true,
+  history: true,
+  keyboard: true,
+  overview: true,
+  center: false,
+  touch: true,
+  view: null,                 /* always presentation view */
+  scrollActivationWidth: 0,   /* never auto-switch to scroll view in narrow panes (kept phones tiny) */
+  transition: 'fade',
+  transitionSpeed: 'fast',
+  backgroundTransition: 'none',
+  pdfMaxPagesPerSlide: 1,
+  pdfSeparateFragments: false,
+  plugins: []
+});
+</script>
+</body>
+</html>

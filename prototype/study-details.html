@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Details — Data4Life</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-frame">
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="topbar__back" href="welcome.html" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <span class="topbar__brand">Data4Life</span>
+    </div>
+    <button class="topbar__profile" aria-label="Profile">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+    </button>
+  </header>
+
+  <main class="main">
+    <div class="progress" id="progress">
+      <div class="progress__row">
+        <span class="progress__step"></span>
+        <span class="progress__label"></span>
+      </div>
+      <div class="progress__track"><div class="progress__fill"></div></div>
+    </div>
+
+    <div>
+      <span class="eyebrow-chip" style="margin-bottom: var(--space-3);">Clinical Research</span>
+      <h1 class="heading-2">Diabetes Prevention Study 2024</h1>
+      <div style="display:flex; align-items:center; gap:var(--space-2); margin-top:var(--space-3);">
+        <svg viewBox="0 0 24 24" width="15" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-text-secondary);"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span class="body-text" style="margin:0;">Est. Duration: 12 Months</span>
+      </div>
+    </div>
+
+    <div class="visual-banner">
+      <img src="assets/study-banner.png" alt="Clinical research environment">
+      <div class="visual-banner__gradient"></div>
+      <span class="visual-banner__caption">Study Location: Remote &amp; Clinical Hubs</span>
+    </div>
+
+    <div class="card">
+      <h3 class="card__title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        Summary
+      </h3>
+      <p class="body-text">This longitudinal study aims to evaluate the effectiveness of personalized nutritional interventions and digital health monitoring in preventing Type 2 Diabetes among high-risk adults. You will be part of a pioneering group helping us understand the impact of real-time data on metabolic health.</p>
+    </div>
+
+    <div class="card card--tint">
+      <h3 class="card__title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+        Data Collection
+      </h3>
+      <div class="tag-grid">
+        <div class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Vital Signs
+        </div>
+        <div class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v20M3 7h8M3 2v10a4 4 0 004 4M21 2c-3 1-5 4-5 8 0 3 1 5 3 5s3-2 3-5V2z"/></svg>
+          Dietary Logs
+        </div>
+        <div class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Activity Data
+        </div>
+        <div class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v5.5L5 18a2 2 0 001.7 3h10.6a2 2 0 001.7-3l-5-9.5V3"/></svg>
+          Biomarkers
+        </div>
+      </div>
+    </div>
+
+    <div class="banner">
+      <p class="banner__title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Your Privacy is Protected
+      </p>
+      <p class="banner__body">All data is encrypted and anonymized. You maintain full ownership and can withdraw your participation at any time without penalty.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+      <a class="button button--primary" href="privacy-consent.html">Proceed to Consent</a>
+      <button class="button button--secondary" type="button" aria-disabled="true" disabled title="Not available in this prototype">Learn More</button>
+    </div>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Primary">
+    <a class="bottom-nav__link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a class="bottom-nav__link bottom-nav__link--active" href="study-details.html" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      Studies
+    </a>
+    <a class="bottom-nav__link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      Profile
+    </a>
+  </nav>
+</div>
+
+<script src="app.js"></script>
+<script>
+  D4L.initProgress(document.getElementById('progress'), 1, 4, 'Data Use Choices');
+</script>
+</body>
+</html>

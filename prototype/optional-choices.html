@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Optional Choices — Data4Life</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-frame">
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="topbar__back" href="privacy-consent.html" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <span class="topbar__brand">Data4Life</span>
+    </div>
+    <button class="topbar__profile" aria-label="Profile">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+    </button>
+  </header>
+
+  <main class="main">
+    <div class="progress" id="progress">
+      <div class="progress__row">
+        <span class="progress__step"></span>
+        <span class="progress__label"></span>
+      </div>
+      <div class="progress__track"><div class="progress__fill"></div></div>
+    </div>
+
+    <div>
+      <h1 class="heading-2 heading-2--brand">Optional choices</h1>
+      <p class="body-text" style="margin-top:var(--space-3);">The following choices are optional. You can participate in the study fully even if you do not select any of these options.</p>
+    </div>
+
+    <div class="toggle-list">
+      <div class="toggle-row">
+        <div class="toggle-row__text">
+          <span class="toggle-row__title">Allow my anonymised data to be reused in future approved research</span>
+          <span class="toggle-row__description">Your data will be used to support new scientific discoveries beyond this specific study.</span>
+        </div>
+        <button class="toggle" id="toggle-reuse" role="switch" aria-checked="false" aria-label="Allow my anonymised data to be reused in future approved research">
+          <span class="toggle__knob"></span>
+        </button>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-row__text">
+          <span class="toggle-row__title">Allow researchers to contact me about related studies</span>
+          <span class="toggle-row__description">We will notify you if your profile matches the requirements for future research opportunities.</span>
+        </div>
+        <button class="toggle" id="toggle-contact" role="switch" aria-checked="false" aria-label="Allow researchers to contact me about related studies">
+          <span class="toggle__knob"></span>
+        </button>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-row__text">
+          <span class="toggle-row__title">Share results back to my treating clinician</span>
+          <span class="toggle-row__description">Your primary doctor will receive a summary of the findings relevant to your health.</span>
+        </div>
+        <button class="toggle" id="toggle-share" role="switch" aria-checked="false" aria-label="Share results back to my treating clinician">
+          <span class="toggle__knob"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="visual-banner visual-banner--message">
+      <img src="assets/optional-banner.png" alt="Health data visualization">
+      <div class="visual-banner__gradient">
+        <div class="visual-banner__message-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Your privacy is our priority. These choices are entirely yours and can be changed at any time in your profile settings.</span>
+        </div>
+      </div>
+    </div>
+
+    <a class="button button--primary" href="confirm-submit.html">Continue</a>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Primary">
+    <a class="bottom-nav__link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a class="bottom-nav__link bottom-nav__link--active" href="study-details.html" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      Studies
+    </a>
+    <a class="bottom-nav__link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      Profile
+    </a>
+  </nav>
+</div>
+
+<script src="app.js"></script>
+<script>
+  D4L.initProgress(document.getElementById('progress'), 3, 4, 'Data Use Choices');
+  D4L.bindToggle(document.getElementById('toggle-reuse'), 'reuseData');
+  D4L.bindToggle(document.getElementById('toggle-contact'), 'contactMe');
+  D4L.bindToggle(document.getElementById('toggle-share'), 'shareResults');
+</script>
+</body>
+</html>

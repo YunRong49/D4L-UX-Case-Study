@@ -1,0 +1,174 @@
+/*
+  Data4Life eConsent prototype — design tokens
+  Source of truth: Figma file 11CqHj7DfYh0GO9RPtGOpK (nodes 8:83, 8:2, 8:152, 8:245, 8:311)
+
+  Deviations from the existing case-study deck (../index.html), by design:
+  - Font is Hanken Grotesk (Figma's actual typeface), not Inter.
+  - Primary brand color is #000080 (Figma-exact), not the deck's #1F1B7E.
+  These screens are a faithful build of specific Figma frames; the deck's
+  slightly different values are its own separate stylistic treatment.
+
+  Dark mode is included per the design-tokens skill's standard output, though
+  the brief does not require it and the prototype ships light-mode only.
+*/
+
+:root {
+  /* ── Color: backgrounds ──────────────────────────────────── */
+  --color-bg-primary: #fbf9f8;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f2f0f1;
+  --color-bg-inverse: #000080;
+  --color-bg-tint: #e5e6f2;
+  --color-bg-tint-soft: rgba(229, 230, 242, 0.3);
+
+  /* ── Color: text ─────────────────────────────────────────── */
+  --color-text-primary: #1b1c1c;
+  --color-text-secondary: #464653;
+  --color-text-placeholder: rgba(27, 28, 28, 0.4);
+  --color-text-inverse: #ffffff;
+  --color-text-link: #000080;
+  --color-text-brand: #000080;
+  --color-text-headline: #00003c;
+
+  /* ── Color: borders ──────────────────────────────────────── */
+  --color-border-primary: #e5e6f2;
+  --color-border-secondary: #c6c5d5;
+  --color-border-dashed: #767684;
+  --color-border-focus: #000080;
+
+  /* ── Color: accents ──────────────────────────────────────── */
+  --color-accent-primary: #000080;
+  --color-accent-primary-hover: #150e60;
+  --color-accent-primary-active: #0d0940;
+  --color-accent-secondary: #c8f169;
+
+  /* ── Color: status ───────────────────────────────────────── */
+  --color-status-success: #16a34a;
+  --color-status-warning: #f5a623;
+  --color-status-error: #dc2626;
+  --color-status-info: #000080;
+
+  /* ── Color: overlays ─────────────────────────────────────── */
+  --color-overlay-image-start: rgba(0, 0, 128, 0.4);
+  --color-overlay-image-end: rgba(0, 0, 128, 0);
+  --color-overlay-modal: rgba(21, 22, 29, 0.5);
+
+  /* ── Component tokens ────────────────────────────────────── */
+  --toggle-track-off: #c6c5d5;
+  --toggle-track-on: var(--color-accent-primary);
+  --toggle-knob-bg: #ffffff;
+  --toggle-knob-border: #d1d5db;
+  --checkbox-border: var(--color-accent-primary);
+  --checkbox-checked-bg: var(--color-accent-primary);
+  --progress-track: #e4e2e2;
+  --progress-fill: var(--color-accent-primary);
+  --signature-bg: var(--color-bg-tertiary);
+  --signature-border: var(--color-border-dashed);
+
+  /* ── Spacing (4px base) ──────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-family-display: 'Hanken Grotesk', sans-serif;
+  --font-family-body: 'Hanken Grotesk', sans-serif;
+
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-base: 18px;
+  --font-size-md: 24px;
+  --font-size-lg: 32px;
+
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+
+  --letter-spacing-normal: 0;
+  --letter-spacing-label: 0.01em;
+  --letter-spacing-eyebrow: 0.05em;
+  --letter-spacing-tight: -0.02em;
+
+  --font-size-2xl: 40px;
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --max-width-mobile: 390px;
+  --max-width-content: 720px;
+  --max-width-page: 1200px;
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-full: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-button: 0 10px 15px -3px rgba(0, 0, 128, 0.2), 0 4px 6px -4px rgba(0, 0, 128, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(0, 0, 128, 0.35);
+
+  /* ── Motion ──────────────────────────────────────────────── */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Breakpoints (used for the centered phone-card treatment) ── */
+  --breakpoint-mobile: 420px;
+  --breakpoint-tablet: 768px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+  }
+}
+
+/* ── Dark mode (provided per design-tokens skill defaults; not wired
+   up by the brief — kept here in case a theme toggle is added later) ── */
+[data-theme='dark'] {
+  --color-bg-primary: #14121f;
+  --color-bg-secondary: #1f1d2e;
+  --color-bg-tertiary: #262438;
+  --color-bg-inverse: #f2f0f1;
+  --color-bg-tint: #2a2840;
+
+  --color-text-primary: #f2f0f1;
+  --color-text-secondary: #9ca0b3;
+  --color-text-placeholder: rgba(242, 240, 241, 0.4);
+  --color-text-inverse: #14121f;
+  --color-text-link: #a5a3ff;
+  --color-text-brand: #a5a3ff;
+
+  --color-border-primary: #2e2b45;
+  --color-border-secondary: #3a3752;
+  --color-border-dashed: #6f6c8a;
+  --color-border-focus: #a5a3ff;
+
+  --color-accent-primary: #6d6bff;
+  --color-accent-primary-hover: #8886ff;
+  --color-accent-primary-active: #5b59e6;
+  --color-accent-secondary: #c8f169;
+
+  --toggle-track-off: #3a3752;
+  --toggle-knob-bg: #f2f0f1;
+  --toggle-knob-border: #45425c;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-button: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-focus: 0 0 0 3px rgba(109, 107, 255, 0.4);
+}
+
+/* Deliberately no `@media (prefers-color-scheme: dark)` block: this
+   prototype ships light-mode only. Dark tokens above are opt-in via
+   [data-theme="dark"] only, for if a theme toggle is added later. */

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm &amp; Submit — Data4Life</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-frame">
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="topbar__back" href="optional-choices.html" aria-label="Back">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <span class="topbar__brand">Data4Life</span>
+    </div>
+    <button class="topbar__profile" aria-label="Profile">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+    </button>
+  </header>
+
+  <main class="main">
+    <div class="progress" id="progress">
+      <div class="progress__row">
+        <span class="progress__step"></span>
+        <span class="progress__label"></span>
+      </div>
+      <div class="progress__track"><div class="progress__fill"></div></div>
+    </div>
+
+    <div id="confirm-content" style="display:contents;">
+      <div>
+        <h1 class="heading-2 heading-2--brand">Final Confirmation</h1>
+        <p class="body-text" style="margin-top:var(--space-3);">Review your participation details and sign to complete the enrollment process.</p>
+      </div>
+
+      <div class="review-grid">
+        <div class="review-card">
+          <span class="review-card__label">Study Name</span>
+          <span class="review-card__value">Diabetes Prevention Study 2024</span>
+        </div>
+        <div class="review-card">
+          <span class="review-card__label">Data Sharing</span>
+          <span class="review-card__value">Anonymized Research Only</span>
+        </div>
+        <div class="review-card">
+          <span class="review-card__label">Consent Duration</span>
+          <span class="review-card__value">Indefinite (Revocable at any time via Settings)</span>
+        </div>
+      </div>
+
+      <div class="signature-block">
+        <span class="signature-block__label">DIGITAL SIGNATURE</span>
+        <div class="signature-pad" id="signature-pad">
+          <canvas id="signature-canvas"></canvas>
+          <div class="signature-pad__placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zM20.7 7.04a1 1 0 000-1.42l-2.34-2.34a1 1 0 00-1.42 0L15.13 5.1l3.75 3.75 1.82-1.81z"/></svg>
+            <span>Draw your signature here</span>
+          </div>
+        </div>
+        <button class="signature-block__clear" id="signature-clear" type="button">Clear signature</button>
+        <div class="field-checkbox" id="confirm-ack" role="checkbox" aria-checked="false" tabindex="0">
+          <span class="checkbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+          </span>
+          <span class="field-checkbox__label">I confirm that I have read and understood the Informed Consent Form and agree to participate in this study.</span>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:var(--space-5); width:100%;">
+        <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+          <button class="button button--primary" id="submit-btn" type="button">Submit Consent</button>
+          <p class="button-hint" id="submit-hint" role="status">Draw your signature and confirm the checkbox above to submit.</p>
+        </div>
+        <div class="support-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>
+          <span>Your contribution helps advance medical science.</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-content" class="success-state" hidden>
+      <div class="success-state__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h1 class="heading-2 heading-2--brand">You're enrolled</h1>
+      <p class="body-text">Your consent has been recorded. You can review or withdraw it at any time from your Profile settings.</p>
+      <a class="button button--primary" href="welcome.html" style="margin-top:var(--space-4);">Back to Data4Life</a>
+    </div>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Primary" id="bottom-nav">
+    <a class="bottom-nav__link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a class="bottom-nav__link bottom-nav__link--active" href="study-details.html" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      Studies
+    </a>
+    <a class="bottom-nav__link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      Profile
+    </a>
+  </nav>
+</div>
+
+<script src="app.js"></script>
+<script>
+  D4L.initProgress(document.getElementById('progress'), 4, 4, 'Data Use Choices');
+
+  var pad = D4L.initSignaturePad(document.getElementById('signature-pad'));
+  var submitBtn = document.getElementById('submit-btn');
+  var submitHint = document.getElementById('submit-hint');
+
+  var refreshGate = D4L.bindGate(submitBtn, submitHint, function () {
+    return !!D4L.state.confirmAck && pad.isDrawn();
+  });
+
+  D4L.bindCheckbox(document.getElementById('confirm-ack'), 'confirmAck', refreshGate);
+  document.getElementById('signature-pad').addEventListener('signature-change', refreshGate);
+
+  document.getElementById('signature-clear').addEventListener('click', function () {
+    pad.clear();
+    refreshGate();
+  });
+
+  submitBtn.addEventListener('click', function () {
+    if (submitBtn.disabled) return;
+    D4L.setState({ submitted: true });
+    document.getElementById('confirm-content').hidden = true;
+    document.getElementById('bottom-nav').hidden = true;
+    var success = document.getElementById('success-content');
+    success.hidden = false;
+    success.focus();
+  });
+</script>
+</body>
+</html>

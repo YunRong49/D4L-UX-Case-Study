@@ -3,7 +3,7 @@
 A presentation-ready UX case study deck (reveal.js) redesigning informed consent
 for D4L Collect's move into clinical research.
 
-**Live deck:** open `index.html` (or the published GitHub Pages URL).
+**Live deck:** open `index.html` [or the published GitHub Pages URL](https://yunrong49.github.io/D4L-UX-Case-Study/).
 **PDF:** [deck.pdf](deck.pdf)
 
 *Live Prototype* (https://yunrong49.github.io/D4L-UX-Case-Study/prototype/welcome.html)
